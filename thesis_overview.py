@@ -8,18 +8,22 @@ from scipy.signal import savgol_filter
 # PAGE CONFIG
 # --------------------------------------------------
 
-st.set_page_config(page_title="Supply Chain ML Thesis Companion", layout="wide")
+st.set_page_config(
+    page_title="Supply Chain ML Thesis Companion",
+    layout="wide"
+)
 
-st.title("Predicting Supply Chain Performance Using Advanced Machine Learning")
+st.title("Predicting Supply Chain Performance Using Advanced Machine Learning: An Empirical Analysis of Key Operational Drivers")
 
-st.write("""
-This interactive application presents a visual companion to the thesis,
-including the research problem, theoretical framework, empirical results,
-and interactive model learning curves.
+st.markdown("""
+This dashboard summarises the key theoretical framework, empirical analysis,
+and predictive modelling results presented in the thesis.
 """)
 
+st.divider()
+
 # --------------------------------------------------
-# NAVIGATION (replaces tabs)
+# NAVIGATION
 # --------------------------------------------------
 
 section = st.radio(
@@ -42,23 +46,38 @@ horizontal=True
 
 if section == "Overview":
 
-    st.header("Problem Statement")
+    st.header("Introduction")
 
-    st.write("""
-Supply chain performance is strongly influenced by organisational
-capabilities such as integration, information sharing, agility,
-and risk management.
+    st.markdown("""
+Supply Chain Performance has become a central determinant of organisational competitiveness
+in modern business environments characterised by uncertainty and disruption.
 
-This research investigates whether advanced machine learning models
-provide superior predictive performance compared with classical
-regression methods when analysing supply chain capability data.
+This study investigates how operational capabilities influence supply chain performance
+and whether advanced machine learning models provide superior predictive performance
+compared with traditional regression models.
 """)
 
-    st.info("""
-Key Insight
+    st.subheader("Research Questions")
 
-Machine learning models do not always outperform classical regression
-when datasets are relatively small and structured.
+    st.markdown("""
+• How do supply chain capabilities influence supply chain performance?
+
+• Which operational capabilities have the strongest impact?
+
+• Do machine learning models outperform traditional regression models
+when predicting supply chain performance using survey-based data?
+""")
+
+    st.subheader("Research Objectives")
+
+    st.markdown("""
+1. Examine the effect of supply chain capabilities on performance.
+
+2. Identify the relative importance of operational drivers.
+
+3. Compare predictive performance of regression and machine learning models.
+
+4. Evaluate whether greater model complexity produces meaningful prediction gains.
 """)
 
 # --------------------------------------------------
@@ -67,40 +86,60 @@ when datasets are relatively small and structured.
 
 elif section == "Research Model":
 
-    st.header("Research Model")
+    st.header("Conceptual Research Model")
 
     st.image("research model 25Jan2026.jpg")
 
+    st.markdown("""
+### Independent Variables
+
+**Supply Chain Integration (SCI)**  
+Internal, supplier, and customer integration.
+
+**Information Sharing (IS)**  
+Accuracy, timeliness, and relevance of information exchange.
+
+**Supply Chain Agility (SCA)**  
+Flexibility and responsiveness of the supply chain.
+
+**Supply Chain Risk Management (SCRM)**  
+Identification, assessment, and mitigation of supply chain risks.
+
+### Dependent Variable
+
+**Supply Chain Performance (SCP)**  
+Measured through operational and financial performance outcomes.
+""")
+
 # --------------------------------------------------
-# DATA & VARIABLES
+# DATA
 # --------------------------------------------------
 
 elif section == "Data & Variables":
 
-    col1, col2 = st.columns(2)
+    st.header("Dataset and Variables")
 
-    with col1:
+    st.markdown("""
+The empirical analysis is based on survey data collected from **222 organisations**.
 
-        st.subheader("Independent Variables")
-
-        st.markdown("""
-• Supply Chain Integration (SCI)
-
-• Information Sharing (IS)
-
-• Supply Chain Agility (SCA)
-
-• Supply Chain Risk Management (SCRM)
+The dataset captures managerial perceptions of supply chain capabilities and performance
+using structured measurement scales.
 """)
 
-    with col2:
+    st.markdown("""
+### Data Preparation
 
-        st.subheader("Dependent Variable")
+• Data cleaning and validation  
+• Aggregation of survey indicators  
+• Construction of composite variables
+""")
 
-        st.markdown("""
-• Supply Chain Performance (SCP)
+    st.markdown("""
+### Statistical Diagnostics
 
-Measured through Operational and Financial Performance.
+• Reliability testing using Cronbach Alpha  
+• Correlation analysis  
+• Multicollinearity diagnostics (VIF)
 """)
 
     st.image("Figure_4_Explanatory_Overview.svg")
@@ -111,23 +150,23 @@ Measured through Operational and Financial Performance.
 
 elif section == "Models":
 
-    st.header("Predictive Models Used")
+    st.header("Predictive Models")
 
     st.markdown("""
-### Linear Regression
-Baseline statistical model used for comparison.
+### Multiple Linear Regression
+Baseline explanatory model widely used in supply chain research.
 
 ### Random Forest
-Tree ensemble capturing nonlinear relationships.
+Tree-based ensemble model capable of capturing nonlinear interactions.
 
 ### XGBoost
-Gradient boosting algorithm with strong predictive performance.
+Gradient boosting algorithm known for strong predictive accuracy.
 
 ### CatBoost
-Boosting model optimized for categorical data.
+Boosting model designed for efficient handling of structured data.
 
 ### Artificial Neural Network
-Multilayer perceptron capable of modelling nonlinear relationships.
+Multilayer model capable of approximating complex nonlinear relationships.
 """)
 
 # --------------------------------------------------
@@ -136,35 +175,63 @@ Multilayer perceptron capable of modelling nonlinear relationships.
 
 elif section == "Results":
 
-    st.header("Model Performance Comparison")
+    st.header("Model Results")
 
     st.image("Table_4_11_APA.svg")
+
+    st.markdown("""
+The results indicate that traditional regression performs competitively
+with machine learning models.
+
+This suggests that greater algorithmic complexity does not necessarily
+produce superior predictive performance when working with structured
+survey datasets.
+""")
 
     st.image("Figure_5_1_Ensemble_Feature_Importance.svg")
 
     st.image("Figure_5_2_Cross_Model_Consistency.svg")
 
 # --------------------------------------------------
-# LEARNING CURVES (YOUR ORIGINAL DASHBOARD)
+# LEARNING CURVES
 # --------------------------------------------------
 
 elif section == "Learning Curves":
 
-    # LOAD DATA
+    st.header("Model Learning Behaviour")
+
+    st.markdown("""
+### Purpose of Learning Curves
+
+Learning curves illustrate how model predictive performance evolves as the
+training dataset becomes larger.
+
+In predictive modelling, increasing the number of observations generally improves
+model accuracy because the algorithms learn more stable patterns from the data.
+However, this improvement typically slows down once sufficient information
+has been captured.
+
+### What This Dashboard Demonstrates
+
+The interactive analysis below shows how the predictive performance of each model
+changes as the number of responses increases.
+
+Key insights:
+
+• Model accuracy improves rapidly when the dataset grows from small sample sizes.  
+• After a certain point, the improvement slows and the models approach a **stability plateau**.  
+• All models exhibit a broadly similar learning pattern, indicating consistent
+learning behaviour across algorithms.
+
+### How to Use the Controls
+
+• The **sample size slider** allows simulation of model performance at different dataset sizes.  
+• The **animation option** visualises how model accuracy evolves progressively.  
+• The **stable learning region option** highlights the portion of the learning curve
+where model performance stabilises.
+""")
 
     df = pd.read_csv("learning_curve_results.csv")
-
-    # --------------------------------------------------
-    # DATASET SUMMARY
-    # --------------------------------------------------
-
-    colA, colB, colC = st.columns(3)
-
-    colA.metric("Total Responses", df.shape[0])
-    colB.metric("Predictor Variables", 4)
-    colC.metric("Models Compared", 5)
-
-    # MODEL COLORS
 
     colors = {
     "LR": "#1f77b4",
@@ -175,10 +242,6 @@ elif section == "Learning Curves":
     }
 
     models = ["LR","RF","XGB","CatBoost","ANN"]
-
-    # --------------------------------------------------
-    # SIDEBAR CONTROLS (ONLY HERE)
-    # --------------------------------------------------
 
     st.sidebar.header("Controls")
 
@@ -202,10 +265,6 @@ elif section == "Learning Curves":
     mime="text/csv"
     )
 
-    # --------------------------------------------------
-    # ANIMATION
-    # --------------------------------------------------
-
     if animate:
         for i in range(int(df.sample_size.min()), sample_size+1):
             st.session_state["current_n"] = i
@@ -220,15 +279,9 @@ elif section == "Learning Curves":
 
     values = latest[models].values.flatten()
 
-    # --------------------------------------------------
-    # CURRENT PERFORMANCE
-    # --------------------------------------------------
-
     st.subheader("Current Model Performance")
 
     col1, col2, col3 = st.columns([1.2,2,2])
-
-    # TABLE
 
     with col1:
 
@@ -239,8 +292,6 @@ elif section == "Learning Curves":
 
         st.dataframe(ranking, use_container_width=True)
 
-    # DOT SNAPSHOT
-
     with col2:
 
         fig_dot = go.Figure()
@@ -249,23 +300,16 @@ elif section == "Learning Curves":
             x=models,
             y=[round(v,3) for v in values],
             mode="markers",
-            marker=dict(
-                size=16,
-                color=[colors[m] for m in models]
-            ),
-            hovertemplate="Model: %{x}<br>R²: %{y:.3f}<extra></extra>"
+            marker=dict(size=16, color=[colors[m] for m in models])
         ))
 
         fig_dot.update_layout(
             title=f"Model Performance at n = {current_n}",
             yaxis_title="R² Score",
-            xaxis_title="Model",
             height=350
         )
 
         st.plotly_chart(fig_dot, use_container_width=True)
-
-    # BAR CHART
 
     with col3:
 
@@ -274,8 +318,7 @@ elif section == "Learning Curves":
         fig_bar.add_trace(go.Bar(
             x=models,
             y=[round(v,3) for v in values],
-            marker_color=[colors[m] for m in models],
-            hovertemplate="Model: %{x}<br>R²: %{y:.3f}<extra></extra>"
+            marker_color=[colors[m] for m in models]
         ))
 
         fig_bar.update_layout(
@@ -286,11 +329,7 @@ elif section == "Learning Curves":
 
         st.plotly_chart(fig_bar, use_container_width=True)
 
-    # --------------------------------------------------
-    # LEARNING CURVES
-    # --------------------------------------------------
-
-    st.subheader("Model Learning Behaviour")
+    st.subheader("Learning Curves (Smoothed)")
 
     @st.cache_data
     def smooth_data(df):
@@ -310,9 +349,6 @@ elif section == "Learning Curves":
 
     smooth_df = smooth_data(df)
 
-    smooth_df["max_model"] = smooth_df[models].max(axis=1)
-    smooth_df["min_model"] = smooth_df[models].min(axis=1)
-
     if stable_region:
         smooth_df = smooth_df[smooth_df["sample_size"] >= 80]
 
@@ -325,8 +361,7 @@ elif section == "Learning Curves":
             y=smooth_df[model],
             mode="lines",
             name=model,
-            line=dict(color=colors[model], width=3),
-            hovertemplate="Sample Size: %{x}<br>R²: %{y:.3f}"
+            line=dict(color=colors[model], width=3)
         ))
 
     fig.add_vline(
@@ -337,7 +372,7 @@ elif section == "Learning Curves":
     )
 
     fig.update_layout(
-    title="Learning Curves (Smoothed)",
+    title="Learning Curves",
     xaxis_title="Sample Size",
     yaxis_title="R² Score",
     template="plotly_white",
@@ -355,9 +390,19 @@ elif section == "Conclusion":
 
     st.header("Conclusion")
 
-    st.write("""
-Machine learning models do not necessarily outperform regression
+    st.markdown("""
+The study demonstrates that adaptive supply chain capabilities play a
+critical role in determining organisational performance.
+
+Supply Chain Agility and Risk Management emerge as the most influential
+drivers of performance, while integration provides the structural
+foundation that enables effective coordination.
+
+The comparison of modelling approaches shows that advanced machine
+learning models do not necessarily outperform traditional regression
 when applied to structured survey datasets.
 
-Model complexity must align with dataset structure and size.
+These findings highlight that organisational capabilities and managerial
+decision processes remain central to supply chain performance, even in
+an era of increasing analytical sophistication.
 """)
