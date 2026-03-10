@@ -120,7 +120,7 @@ elif section == "Data & Variables":
     st.header("Dataset and Variables")
 
     st.markdown("""
-The empirical analysis is based on survey data collected from **222 organisations**.
+The empirical analysis is based on survey data collected from **222 individuals**.
 
 The dataset captures managerial perceptions of supply chain capabilities and performance
 using structured measurement scales.
@@ -406,3 +406,4 @@ These findings highlight that organisational capabilities and managerial
 decision processes remain central to supply chain performance, even in
 an era of increasing analytical sophistication.
 """)
+
